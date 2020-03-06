@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace PasswordCrackerMaster
 
             foreach (var user in userInfos)
             {
-                TcpClient client = new TcpClient("localhost", 7000);
+                TcpClient client = new TcpClient("127.0.0.1", 7123);
 
                 using (StreamReader sr = new StreamReader(client.GetStream()))
                 using (StreamWriter sw = new StreamWriter(client.GetStream()))

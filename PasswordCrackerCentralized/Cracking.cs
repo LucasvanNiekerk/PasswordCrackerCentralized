@@ -22,34 +22,27 @@ namespace PasswordCrackerCentralized
         /// </summary>
         private readonly HashAlgorithm _messageDigest;
 
-        private List<UserInfoClearText> result;
-        private int id;
-        private Mutex m;
-        private Mutex m2;
-        private Mutex m3;
+
 
         public Cracking()
         {
             _messageDigest = new SHA1CryptoServiceProvider();
-            m = new Mutex();
-            m2 = new Mutex();
-            m3 = new Mutex();
-            result = new List<UserInfoClearText>();
             //_messageDigest = new MD5CryptoServiceProvider();
             // seems to be same speed
         }
 
         public void RunCrakingThreaded()
         {
-            TcpListener server = new TcpListener(IPAddress.Loopback, 7000);
+            TcpListener server = new TcpListener(IPAddress.Any, 7123);
             server.Start();
-
+            List<UserInfoClearText> result;
 
             while (true)
             {
                 if (server.Pending())
                 {
                     TcpClient socket = server.AcceptTcpClient();
+                    Console.WriteLine("Master has arrived :3");
 
                     //Task.Run(
                     //    () =>
